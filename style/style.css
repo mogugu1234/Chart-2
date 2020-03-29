@@ -17,6 +17,12 @@
   height: 100vh;
 }
 
+#button{
+  float:center;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-size: 12pt;
+}
 
 .tooltip {
   position: absolute;

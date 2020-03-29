@@ -13,18 +13,28 @@ d3.csv("./data/2018income restricted projects.csv").then(function(data) {
 
    
     /*
-    DETERMINE VARIABLES TtlProjUnits
+    DETERMINE DATA TtlProjUnits + TtlIncomeR
     */
 
-   var nested = d3.nest()
+   var nested1 = d3.nest()
    .key(function(d){return d.Neighborhood;})
    .rollup(function(v) { return d3.sum(v, function(d) { return d.TtlProjUnits; }); })
    .entries(data);
-   console.log(nested);
+   console.log(nested1);
+   var filltered1 = nested1.slice(0,15);
+    console.log(filltered1);
 
+    var nested2 = d3.nest()
+   .key(function(d){return d.Neighborhood;})
+   .rollup(function(v) { return d3.sum(v, function(d) { return d.TtlIncomeR; }); })
+   .entries(data);
+   console.log(nested2);
+   var filltered2 = nested2.slice(0,15);
+    console.log(filltered2);
 
-   var filltered = nested.slice(0,15);
-    console.log(filltered);
+   /*
+    DRAW PIE CHART
+    */
 
    var g = svg.append("g")
         .attr("transform",`translate(${width/2},${height/2})`);
@@ -33,14 +43,20 @@ d3.csv("./data/2018income restricted projects.csv").then(function(data) {
         .value(function(d){return d.value;});
 
    var color = d3.scaleOrdinal(d3.schemeCategory10);
-
+    /*
+    CLICK EVENT1
+    */
+   d3.select("#1").on("click",function(){
+       
+   })
+   
    var arc = d3.arc()
         .innerRadius(50)
         .outerRadius(250);
-        console.log(pie(filltered));
+        console.log(pie(filltered1));
 
    var arcs = g.selectAll(".arc")
-        .data(pie(filltered))
+        .data(pie(filltered1))
         .enter()
         .append("g")
         .attr("class","arc");
@@ -50,6 +66,8 @@ d3.csv("./data/2018income restricted projects.csv").then(function(data) {
         .attr("fill",function (d,i){
             return color (i);
         });  
+
+    
 
     /*
         tooltip for the chart!
